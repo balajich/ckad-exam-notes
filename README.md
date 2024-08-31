@@ -15,6 +15,7 @@ vagrant up
 cd C:\github\vagrant-kubeadm-kubernetes
 vagrant ssh controlplane
 ```
+- The password for vagrant user is vagrant
 # Core Concepts
 - Important commands
 - Get Pods
@@ -34,25 +35,37 @@ kubectl get namespaces
 ```
 - Create a namespace
 ```bash
-kubectl create namespace my-namespace
+kubectl create namespace mynamespace
 ```
 - Get all pods in a namespace
 ```bash
-kubectl get pods -n my-namespace
+kubectl get pods -n mynamespace
 ```
 - Get all pods in all namespaces
 ```bash
 kubectl get pods --all-namespaces
 ```
-- Create a pod named tomcat using the image tomcat:9.0 in the namespace my-namespace
-```bash
-kubectl run tomcat --image=tomcat:9.0 -n my-namespace
-```
 - Get all resources in a namespace
 ```bash
-kubectl get all -n my-namespace
+kubectl get all -n mynamespace
 ```
-
+- Create a pod named tomcat using the image tomcat:9.0 in the namespace my-namespace
+```bash
+kubectl run tomcat --image=tomcat:9.0 -n mynamespace
+```
+- Create the above pod using a manifest file
+```bash
+kubectl run tomcat92 --image=tomcat:9.0 --dry-run=client -o yaml > tomcatpod.yaml
+kubectl create -f tomcatpod.yaml -n mynamespace
+```
+- Create a pod named tomcat from tomcat 9.0 image and run java version command init, delete the pod once the command is executed
+```bash
+kubectl run tomcat --image=tomcat:9.0 --restart=Never --it --rm -- java -version
+```
+- Get a namespace definition file called myns with out actually creating it
+```bash
+kubectl create namespace myns --dry-run=client -o yaml > myns.yaml
+```
 # References
 - [Practice Environment] (https://github.com/techiescamp/vagrant-kubeadm-kubernetes)
 - [CKAD Exercises] (https://github.com/dgkanatsios/CKAD-exercises)
