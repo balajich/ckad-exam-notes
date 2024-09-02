@@ -1,0 +1,12 @@
+# Run echo command in busybox container
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod
+spec:
+  containers:
+  - name: busybox-container
+    image: busybox
+    command: ["echo"]
+    args: ["Hello World"]
+

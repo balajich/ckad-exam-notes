@@ -1,0 +1,21 @@
+#Use configmap as volume mount
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod-3
+spec:
+  containers:
+  - name: busybox-container
+    image: busybox
+    command: ["sh", "-c"]
+    args: ["cat /config/version"]
+    volumeMounts:
+      - name: config
+        mountPath: "/config"
+        readOnly: true
+  volumes:
+    # You set volumes at the Pod level, then mount them into containers inside that Pod
+    - name: config
+      configMap:
+        # Provide the name of the ConfigMap you want to mount.
+        name: configmap-2

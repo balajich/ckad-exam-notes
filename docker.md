@@ -44,9 +44,17 @@ CMD ["5"]
 ```
 - Build the above docker file to create a docker image with the name ubuntu-sleeper
 ```bash
-docker build -t ubuntu-sleeper .
+docker build -t ubuntu-sleeper -f DockerfileWithEntryPoint .
 ```
 - Run the above docker container which will sleep for 5 seconds default
 ```bash
 docker run ubuntu-sleeper
+```
+- Run the container with 20 seconds sleep
+```bash
+docker run ubuntu-sleeper 20
+```
+- Override the entrypoint command with echo command
+```bash
+docker run --entrypoint echo "Hello world" ubuntu-sleeper 10
 ```

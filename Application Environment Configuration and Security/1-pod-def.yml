@@ -1,0 +1,16 @@
+# Run echo command in busybox container
+# define environment variables version
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod-1
+spec:
+  containers:
+  - name: busybox-container
+    image: busybox
+    command: ["sh", "-c"]
+    args: ["echo version is $version"]
+    env:
+      - name: version
+        value: "1.0"
+

@@ -1,0 +1,15 @@
+# Run echo command in busybox container
+# use environment variables from configMap
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod-2
+spec:
+  containers:
+  - name: busybox-container
+    image: busybox
+    command: ["sh", "-c"]
+    args: ["echo version is $version"]
+    envFrom:
+      - configMapRef:
+          name: configmap-2

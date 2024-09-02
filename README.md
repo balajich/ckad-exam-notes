@@ -67,6 +67,7 @@ kubectl run tomcat --image=tomcat:9.0 --restart=Never --it --rm -- java -version
 kubectl create namespace myns --dry-run=client -o yaml > myns.yaml
 ```
 # References
+- [CKAD Curriculum] (https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_v1.30.pdf)
 - [Practice Environment] (https://github.com/techiescamp/vagrant-kubeadm-kubernetes)
 - [CKAD Exercises] (https://github.com/dgkanatsios/CKAD-exercises)
 - [Kubernetes Documentation] (https://kubernetes.io/docs/home/)

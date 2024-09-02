@@ -1,0 +1,7 @@
+# Define configMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-2
+data:
+  version: "2.0"
