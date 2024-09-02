@@ -18,6 +18,7 @@ docker rm mysql-db
 # Run python application that reads customers table from classicmodels database
 -Prerequisite
 ```
+cd C:\github\ckad-exam-notes\misc\app
 set PYTHONHOME=C:\soft\python-3.9.13
 set PATH=%PYTHONHOME%;%PYTHONHOME%\Scripts;%PATH%
 python -m venv venv
@@ -28,7 +29,13 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
-- Access the customers at http://localhost:5000/customers
+- Access the application customers at http://localhost:5000/customers
 
+# Run the python application and database in docker containers using docker-compose
+```bash
+cd C:\github\ckad-exam-notes\misc\app
+docker-compose up --build
+```
+- Access the application customers at http://localhost:5000/customers
 # References
 - Download classicmodels database from [classicmodels.sql](https://raw.githubusercontent.com/josephmuli/ckad-exam-notes/main/misc/classicmodels.sql)

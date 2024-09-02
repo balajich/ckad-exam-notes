@@ -1,15 +1,16 @@
 
 from flask import Flask, jsonify
 import mysql.connector
+import os
 
 app = Flask(__name__)
 
 # Database connection configuration
 db_config = {
     'user': 'root',
-    'password': 'root',
-    'host': '127.0.0.1',
-    'database': 'classicmodels'
+    'password': os.getenv('MYSQL_PASSWORD'),
+    'host': os.getenv('MYSQL_HOST'),
+    'database': os.getenv('MYSQL_DB')
 }
 
 @app.route('/customers', methods=['GET'])
