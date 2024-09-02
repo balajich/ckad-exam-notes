@@ -20,3 +20,7 @@ docker run --name python-app -e MYSQL_HOST=mysql-db -e MYSQL_PASSWORD=rootpass -
 docker stop python-app mysql-db
 docker rm python-app mysql-db
 ```
+# Build and Run the docker containers using docker-compose
+```bash
+docker-compose up --build -d 
+```
