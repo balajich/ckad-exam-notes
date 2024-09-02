@@ -24,3 +24,29 @@ docker rm python-app mysql-db
 ```bash
 docker-compose up --build -d 
 ```
+# Publish the images to docker hub
+## Tag the docker images
+```bash
+docker tag balajich/mysql-db:latest balajich/mysql-db:latest
+docker tag balajich/python-app:latest balajich/python-app:latest
+```
+## Login to docker hub
+```bash
+docker login
+```
+## Push the images to docker hub
+```bash
+docker push balajich/mysql-db:latest
+docker push balajich/python-app:latest
+```
+# Run the docker containers in a pod in Kubernetes
+## Start minikube using the docker driver
+```bash
+minikube start --driver=docker
+```
+## Deploy application to Kubernetes cluster
+```bash
+kubectl apply -f pod-definition.yml
+```
+## access the application
+http://localhost:5000/customers
