@@ -1,0 +1,51 @@
+# create database details configmap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-details
+data:
+  MYSQL_HOST: "mysql"
+  MYSQL_USER: "root"
+  MYSQL_PASSWORD: "rootpass"
+  MYSQL_DB: "classicmodels"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-app-pod
+  labels:
+    app: python-app-pod
+spec:
+  containers:
+    - name: mysql
+      image: balajich/mysql-db:latest
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "rootpass"
+        - name: MYSQL_DATABASE
+          value: "classicmodels"
+      ports:
+        - containerPort: 3306
+
+    - name: python-app
+      image: balajich/python-app:latest
+      envFrom:
+      - configMapRef:
+          name: db-details
+      ports:
+        - containerPort: 5000
+# expose python-app-pod to the outside world
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+spec:
+  selector:
+    app: python-app-pod
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer

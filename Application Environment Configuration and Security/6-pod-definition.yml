@@ -1,0 +1,51 @@
+# create database details secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-details-secret
+data:
+  MYSQL_HOST: bG9jYWxob3N0
+  MYSQL_USER: cm9vdA==
+  MYSQL_PASSWORD: cm9vdHBhc3M=
+  MYSQL_DB: Y2xhc3NpY21vZGVscw==
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-app-pod
+  labels:
+    app: python-app-pod
+spec:
+  containers:
+    - name: mysql
+      image: balajich/mysql-db:latest
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "rootpass"
+        - name: MYSQL_DATABASE
+          value: "classicmodels"
+      ports:
+        - containerPort: 3306
+
+    - name: python-app
+      image: balajich/python-app:latest
+      envFrom:
+      - secretRef:
+          name: db-details-secret
+      ports:
+        - containerPort: 5000
+# expose python-app-pod to the outside world
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+spec:
+  selector:
+    app: python-app-pod
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer
