@@ -1,0 +1,27 @@
+# Create a two tier application using docker-compose
+# The application consists of a web application and a database
+# The web application is a simple flask application that connects to a mysql database
+# The database is a mysql database which has a database called classicmodels
+# build file using docker-compose -f docker-compose-app2.yml build
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-MySQL-DB
+    image: balajich/mysql-db:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: classicmodels
+    ports:
+      - "3306:3306"
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-Python-App2
+    image: balajich/python-app:2.0
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db

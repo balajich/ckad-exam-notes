@@ -1,3 +1,7 @@
+# use environment variables to pass the database connection details to the python application
+# Access application from minikube using the following command:
+# minikube service python-app-service
+# Sample URL will be http://127.0.0.1:52598/customers (port number will be different)
 apiVersion: v1
 kind: Pod
 metadata:
