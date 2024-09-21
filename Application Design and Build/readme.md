@@ -43,9 +43,9 @@ docker run -d -p 5000:5000 python-app0
 ```
 ## Modify
 There are various ways to modify the container image.
-- We can modify the container image by changing the code in the application.
-- We can rebuild the image and run the container.
-- We can also modify the container image by running the container in the interactive mode.
+- Modify the container image by changing the code in the application, rebuild the image and run the container.
+- Modify the container image by running the container in the interactive mode.
+- In below example, we will modify the container image by running the container in the interactive mode and install curl in the container.
 ```bash
 # Start the container
 docker run -d -it python-app0 /bin/bash
