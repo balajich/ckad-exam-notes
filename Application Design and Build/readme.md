@@ -81,3 +81,23 @@ Following are the different types of Kubernetes workload resources:
 - DaemonSet
 - Job
 - CronJob
+## Pods
+- The basic unit of deployment in Kubernetes. A Pod represents a group of one or more containers that share storage and network resources. Use Pods for simple, single-container applications or tightly coupled multi-container applications
+- Let's create a pod that run python-app0 container.
+- Prerequisites: Let's push the python-app0 image to the docker hub.
+```bash
+docker tag python-app0:latest balajich/python-app0:latest
+# push the image to the docker hub
+docker push balajich/python-app0:latest
+# start the minikube
+minikube start
+```
+- create the pods
+```bash
+kubectl create -f pod-def-python-app0.yml
+kubectl get pods
+```
+- access the application
+```bash
+minikube service python-app0-service
+```

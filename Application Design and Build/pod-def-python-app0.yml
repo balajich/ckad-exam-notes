@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-app0-pod
+  labels:
+    app: python-app0-pod
+spec:
+  containers:
+    - name: python-app0-con
+      image: balajich/python-app0:latest
+      ports:
+        - containerPort: 5000
+# expose python-app0-pod to the outside world
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app0-service
+spec:
+  selector:
+    app: python-app0-pod
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer
