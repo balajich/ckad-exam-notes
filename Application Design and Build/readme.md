@@ -5,6 +5,7 @@
   * [Build](#build)
   * [Run](#run)
   * [Modify](#modify)
+* [Choose and use the right workload resource (Development, DaemonSet,CronJob, etc.)](#choose-and-use-the-right-workload-resource-development-daemonsetcronjob-etc)
 <!-- TOC -->
 # Prerequisites
 ```bash
@@ -70,3 +71,13 @@ docker exec -it 76effa2153a2 /bin/bash
 # Check the curl is installed in the container
 curl --version
 ```
+# Choose and use the right workload resource (Development, DaemonSet,CronJob, etc.)
+It is important to choose the right **Kubernetes workload resource** based on the requirement of the application. Some applications can be a simple rest api application, some applications can be a batch processing application, some applications can be a real-time processing application. Based on the requirement of the application, we need to choose the right Kubernetes workload resource.
+Following are the different types of Kubernetes workload resources:
+- Pod
+- ReplicaSet
+- Deployment
+- StatefulSet
+- DaemonSet
+- Job
+- CronJob
