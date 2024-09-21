@@ -100,4 +100,7 @@ kubectl get pods
 - access the application
 ```bash
 minikube service python-app0-service
+# The application can be accessed on port assigned by the minikube
+# The port number may be different in your case.
+curl http://127.0.0.1:52668/
 ```
