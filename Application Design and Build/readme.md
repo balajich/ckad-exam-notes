@@ -84,6 +84,8 @@ Following are the different types of Kubernetes workload resources:
 - DaemonSet
 - Job
 - CronJob
+
+![Kubernetes Resources.drawio.png](Kubernetes%20Resources.drawio.png)
 ## Pods
 - The basic unit of deployment in Kubernetes. A Pod represents a group of one or more containers that share storage and network resources. Use Pods for simple, single-container applications or tightly coupled multi-container applications
 ### Single Container Pod
