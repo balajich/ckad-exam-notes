@@ -131,4 +131,7 @@ docker push balajich/app11:latest
 kubectl create -f pod-def-python-app1.yml
 kubectl get pods
 minikube service python-app1-service
+# The application can be accessed on port assigned by the minikube
+# The port number may be different in your case.
+curl http://127.0.0.1:53190/
 ```
