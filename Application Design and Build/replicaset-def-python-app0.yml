@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: python-app0-replicaset
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-app0-pod
+  template:
+    metadata:
+      labels:
+        app: python-app0-pod
+    spec:
+      containers:
+        - name: python-app0-con
+          image: balajich/python-app0:latest
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app0-service
+spec:
+  selector:
+    app: python-app0-pod
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer

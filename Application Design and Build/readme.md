@@ -138,3 +138,44 @@ minikube service python-app1-service
 # The port number may be different in your case.
 curl http://127.0.0.1:53190/
 ```
+### ReplicaSet
+- It helps in application high availability.
+- Provides load balancing and scaling.
+- Makes pod fault tolerant.
+- ReplicaSet ensures that a specified number of pod replicas are running at any given time. It is often used to guarantee the availability of a specified number of identical Pods.
+- Lets two pods of python-app0 using ReplicaSet.
+```bash
+kubectl create -f replicaset-def-python-app0.yml
+kubectl get replicaset
+# You can see two pods of python-app0 are running.
+kubectl get pods
+minikube service python-app0-service
+curl http://127.0.0.1:55775/
+```
+- Scale the replicaset to 3 pods
+```bash
+kubectl scale --replicas=3 replicaset python-app0-replicaset
+# You can see three pods of python-app0 are running.
+kubectl get pods
+```
+- You can scale the application based on load as well.
+- Horizontal Pod Autoscaler to scale the application based on CPU utilization.
+- Vertical Pod Autoscaler to scale the application based on memory utilization.
+- Custom Metrics Adapter to scale the application based on custom metrics.
+- External Metrics Adapter to scale the application based on external metrics.
+### Deployment
+- It is a higher-level concept that manages ReplicaSets and provides declarative updates to Pods along with a lot of other useful features.
+- Key features
+    - Rollout and Rollback
+    - Scaling
+    - Pause and Resume
+    - Rollout History
+    - Deployment Strategies
+- Lets deploy the python-app0 using Deployment
+```bash
+kubectl create -f deployment-def-python-app0.yml
+kubectl get deployments
+kubectl get replicasets
+kubectl get pods
+minikube service python-app0-service
+```
