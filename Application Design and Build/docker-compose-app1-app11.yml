@@ -1,0 +1,18 @@
+services:
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile-app1
+    image: app1:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - app11
+
+  app11:
+    build:
+      context: .
+      dockerfile: Dockerfile-app11
+    image: app11:latest
+    ports:
+      - "5001:5001"

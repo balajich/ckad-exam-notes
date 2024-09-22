@@ -116,3 +116,19 @@ python app11.py
 # access the application app1.py that internally calls app11.py
 curl http://localhost:5000/
 ```
+- Build and publish the app1 and app11 images to the docker hub using docker compose
+```bash
+docker-compose -f docker-compose-app1-app11.yml build
+# tag the images
+docker tag app1:latest balajich/app1:latest
+docker tag app11:latest balajich/app11:latest
+#push the images to the docker hub
+docker push balajich/app1:latest
+docker push balajich/app11:latest
+```
+- Deploy the multi-container pod on to minikube
+```bash
+kubectl create -f pod-def-python-app1.yml
+kubectl get pods
+minikube service python-app1-service
+```
