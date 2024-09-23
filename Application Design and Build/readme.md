@@ -9,10 +9,10 @@
   * [Pods](#pods)
     * [Single Container Pod](#single-container-pod)
     * [Multi Container Pod](#multi-container-pod)
-    * [ReplicaSet](#replicaset)
-    * [Deployment](#deployment)
-    * [DaemonSet](#daemonset)
-    * [Job](#job)
+  * [ReplicaSet](#replicaset)
+  * [Deployment](#deployment)
+  * [DaemonSet](#daemonset)
+  * [Job](#job)
 <!-- TOC -->
 # Prerequisites
 ```bash
@@ -144,7 +144,7 @@ minikube service python-app1-service
 # The port number may be different in your case.
 curl http://127.0.0.1:53190/
 ```
-### ReplicaSet
+## ReplicaSet
 - It helps in application high availability.
 - Provides load balancing and scaling.
 - Makes pod fault tolerant.
@@ -169,7 +169,7 @@ kubectl get pods
 - Vertical Pod Autoscaler to scale the application based on memory utilization.
 - Custom Metrics Adapter to scale the application based on custom metrics.
 - External Metrics Adapter to scale the application based on external metrics.
-### Deployment
+## Deployment
 - It is a higher-level concept that manages ReplicaSets and provides declarative updates to Pods along with a lot of other useful features.
 - Key features
     - Rollout and Rollback
@@ -185,7 +185,7 @@ kubectl get replicasets
 kubectl get pods
 minikube service python-app0-service
 ```
-### DaemonSet
+## DaemonSet
 A DaemonSet ensures that a copy of a Pod runs on all (or some) nodes in the cluster. It’s typically used for background tasks like logging, monitoring, or other node-specific services.
 Every time a new node is added to a cluster, the pod is added to it, and when a node is removed from the cluster, the pod is removed. When a DaemonSet is deleted, Kubernetes removes all the pods created by it.
 - Lets create a python application that checks for the health of websites and logs the status.
@@ -210,7 +210,7 @@ minikube node add
 # observe the new pod is created on the new node
 kubectl get pods -o wide
 ```
-### Job
+## Job
 - A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete.
 - Lets create a python application that computes pie value and logs the value.
 ```bash
