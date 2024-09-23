@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: app3-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: app3-container
+          image: balajich/app3:latest
+      restartPolicy: Never
+  backoffLimit: 4

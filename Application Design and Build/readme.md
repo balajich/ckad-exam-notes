@@ -181,3 +181,50 @@ kubectl get replicasets
 kubectl get pods
 minikube service python-app0-service
 ```
+### DaemonSet
+A DaemonSet ensures that a copy of a Pod runs on all (or some) nodes in the cluster. It’s typically used for background tasks like logging, monitoring, or other node-specific services.
+Every time a new node is added to a cluster, the pod is added to it, and when a node is removed from the cluster, the pod is removed. When a DaemonSet is deleted, Kubernetes removes all the pods created by it.
+- Lets create a python application that checks for the health of websites and logs the status.
+```bash
+python app2.py
+# Build docker image
+docker build -t app2 -f Dockerfile-app2 .
+# Run the docker image to test the application
+docker run  -it app2
+# Tag the image
+docker tag app2:latest balajich/app2:latest
+# Push the image to the docker hub
+docker push balajich/app2:latest
+```
+- Deploy the application as DaemonSet
+```bash
+kubectl create -f daemonset-def-app2.yml
+kubectl get daemonsets
+kubectl get pods
+# Add a new node
+minikube node add
+# observe the new pod is created on the new node
+kubectl get pods -o wide
+```
+### Job
+- A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete.
+- Lets create a python application that computes pie value and logs the value.
+```bash
+python app3.py
+# Build docker image
+docker build -t app3 -f Dockerfile-app3 .
+# Run the docker image to test the application
+docker run  -it app3
+# Tag the image
+docker tag app3:latest balajich/app3:latest
+# Push the image to the docker hub
+docker push balajich/app3:latest
+```
+- Deploy the application as Job
+```bash
+kubectl create -f job-def-app3.yml
+kubectl get jobs
+kubectl get pods
+# Check the logs of the pod
+kubectl logs app3-job-7z5z2
+```
