@@ -9,6 +9,10 @@
   * [Pods](#pods)
     * [Single Container Pod](#single-container-pod)
     * [Multi Container Pod](#multi-container-pod)
+    * [ReplicaSet](#replicaset)
+    * [Deployment](#deployment)
+    * [DaemonSet](#daemonset)
+    * [Job](#job)
 <!-- TOC -->
 # Prerequisites
 ```bash
