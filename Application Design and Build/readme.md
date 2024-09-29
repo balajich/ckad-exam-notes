@@ -13,6 +13,7 @@
   * [Deployment](#deployment)
   * [DaemonSet](#daemonset)
   * [Job](#job)
+  * [CronJob](#cronjob)
 <!-- TOC -->
 # Prerequisites
 ```bash
@@ -212,7 +213,7 @@ kubectl get pods -o wide
 ```
 ## Job
 - A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete.
-- Lets create a python application that computes pie value and logs the value.
+- Lets create a python application that runs the task computing pie value and logs the value.
 ```bash
 python app3.py
 # Build docker image
@@ -231,4 +232,25 @@ kubectl get jobs
 kubectl get pods
 # Check the logs of the pod
 kubectl logs app3-job-7z5z2
+```
+## CronJob
+- A CronJob creates Jobs on a repeating schedule.
+- Lets create a python application that prints the current time and schedule it to run every 10 minutes.
+```bash
+python app5.py
+# Build docker image
+docker build -t app5 -f Dockerfile-app5 .
+# Run the docker image to test the application
+docker run  -it app5
+# Tag the image
+docker tag app5:latest balajich/app5:latest
+# Push the image to the docker hub
+docker push balajich/app5:latest
+```
+- Deploy the application as CronJob
+```bash
+minikube start
+kubectl create -f cronjob-def-app5.yml
+kubectl get cronjobs
+kubectl get pods
 ```
