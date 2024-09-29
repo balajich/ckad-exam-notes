@@ -254,3 +254,39 @@ kubectl create -f cronjob-def-app5.yml
 kubectl get cronjobs
 kubectl get pods
 ```
+# Understand multi-container Pod design patterns
+multi-container pods are used to run **multiple containers** that need to work closely together.There are three common design patterns for multi-container pods
+## Sidecar pattern
+- The sidecar pattern is a container pattern where a sidecar container is attached to a primary container to extend or enhance its functionality.
+- The sidecar container runs alongside the main container and provides additional functionality.
+- The sidecar container can be used to provide logging, monitoring, or any other functionality that is not part of the main container.
+- Common use cases for the sidecar pattern include logging, monitoring, security and data synchronization.
+- Let's create an application that has two services
+  - **writer service** writes data and time to log file for every 5 seconds
+  - **reader service** reads the log file and prints the data to the console for every 5 seconds
+```bash
+# Run the writer service
+python app6-writer.py
+# Run the reader service
+python app6-reader.py
+# Build the writer image
+docker build -t app6-writer -f Dockerfile-app6-writer .
+# Run the writer image
+docker run -it app6-writer
+# Build the reader image
+docker build -t app6-reader -f Dockerfile-app6-reader .
+# Run the reader image
+docker run -it app6-reader
+# Tag the images
+docker tag app6-writer:latest balajich/app6-writer:latest
+docker tag app6-reader:latest balajich/app6-reader:latest
+# Push the images to the docker hub
+docker push balajich/app6-writer:latest
+docker push balajich/app6-reader:latest
+# Deploy the multi-container pod as sidecar pattern
+kubectl create -f pod-def-app6.yml
+# Check pods
+kubectl get pods
+# Check logs of the reader pod
+kubectl logs app6-pod -c app6-reader-container
+```

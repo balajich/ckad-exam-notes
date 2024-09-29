@@ -1,0 +1,21 @@
+# Simple example of sidecar pattern where two containers are running in the same pod
+# The writer container writes to a file and the reader container reads from the file
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app6-pod
+spec:
+  containers:
+    - name: app6-writer-container
+      image: balajich/app6-writer:latest
+      volumeMounts:
+        - name: shared-data
+          mountPath: /logs
+    - name: app6-reader-container
+      image: balajich/app6-reader:latest
+      volumeMounts:
+        - name: shared-data
+          mountPath: /logs
+  volumes:
+    - name: shared-data
+      emptyDir: {}
