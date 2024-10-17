@@ -14,6 +14,8 @@
   * [DaemonSet](#daemonset)
   * [Job](#job)
   * [CronJob](#cronjob)
+* [Understand multi-container Pod design patterns](#understand-multi-container-pod-design-patterns)
+  * [Sidecar pattern](#sidecar-pattern)
 <!-- TOC -->
 # Prerequisites
 ```bash
