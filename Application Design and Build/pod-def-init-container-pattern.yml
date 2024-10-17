@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-container-pod
+  labels:
+    app: init-container-pod
+spec:
+  initContainers:
+    - name: init-busybox
+      image: busybox
+      command: ['sh', '-c', 'echo Hello World']
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: init-container-service
+spec:
+  selector:
+    app: init-container-pod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer

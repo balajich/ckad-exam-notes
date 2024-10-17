@@ -258,6 +258,29 @@ kubectl get pods
 ```
 # Understand multi-container Pod design patterns
 multi-container pods are used to run **multiple containers** that need to work closely together.There are three common design patterns for multi-container pods
+## Init Container Pattern
+
+An **init container** in Kubernetes is a specialized container that runs before the main application containers in a pod. Its primary purpose is to perform initialization tasks that must be completed before the application containers start. Here are some key points about init containers:
+
+- **Run to Completion**: Init containers run to completion, meaning they must finish successfully before the main application containers start.
+- **Sequential Execution**: If you have multiple init containers, they run sequentially, one after another.
+- **Failure Handling**: If an init container fails, Kubernetes will restart it until it succeeds. If it continues to fail, the pod is considered failed.
+- **Shared Resources**: Init containers share the same network namespace and volumes with the main application containers, allowing them to perform tasks like setting up configurations or populating data.
+
+Init containers are useful for tasks like waiting for a dependent service to be available, configuring the network, or preparing data volumes.
+- Let's create an application that has two services
+  - **init service** A service that prints hello world and run on startup
+  - **webapp service** A service that provides ngnix web server welcome page
+```bash
+# Deploy the multi-container pod as init container pattern
+kubectl create -f pod-def-init-container-pattern.yml
+# Check pods
+kubectl get pods
+# Check logs of the init container
+kubectl logs init-container-pod -c init-busybox
+# expose the init-container-service
+minikube service init-container-service
+```
 ## Sidecar pattern
 - The sidecar pattern is a container pattern where a sidecar container is attached to a primary container to extend or enhance its functionality.
 - The sidecar container runs alongside the main container and provides additional functionality.
